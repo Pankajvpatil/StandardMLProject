@@ -1,0 +1,20 @@
+import sys
+import logging
+
+def error_message_details(error, error_detail: sys):
+    _, _, exc_tb = error_detail.exc_info()
+    file_name = exc_tb.tb_frame.f_code.co_filename
+    line_number = exc_tb.tb_lineno
+    error_message = f"Error occurred in script: {file_name}, line number: {line_number}, error message: {str(error)}"
+    return error_message
+
+class CustomException(Exception):
+    def __init__(self, message, errors_details:sys):
+        super().__init__(message)
+        self.errors = error_message_details(message, errors_details)
+
+    def __str__(self):
+        return f"CustomException: {self.args[0]}"
+
+      
+        
